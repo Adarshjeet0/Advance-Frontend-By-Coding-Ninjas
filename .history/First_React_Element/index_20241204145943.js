@@ -1,0 +1,1 @@
+const reactElement = React.createElement("h1",{className:"heading"}, "")
