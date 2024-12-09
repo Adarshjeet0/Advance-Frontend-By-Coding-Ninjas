@@ -18,29 +18,86 @@
     <div id="root"></div>
     <script type="text/babel">
       const { useState } = React;
+      let ballsArr = [];
+      let score = 0;
+      let wicket = 0;
+      const addScore = (num) => {
+        // console.log("clicked");
+        if (wicket < 10) {
+          score += num;
+          ballsArr.push(num);
+          console.log(ballsArr);
+          root.render(<App />);
+        }
+      };
 
-      const ScoreKeeper = () => {
-        // Initialize state within the functional component
-        const [score, setScore] = useState(0);
-        const [wicket, setWicket] = useState(0);
+      const addWicket = () => {
+        if (wicket < 10) {
+          wicket += 1;
+          ballsArr.push("W");
+          root.render(<App />);
+        }
+        console.log(ballsArr);
+      };
+      const ScoreButtonKeeper = () => {
 
         return (
           <>
-            <h1>Score Keeper</h1>
-            <h3>
-              Score: {score}/{wicket}
-            </h3>
+            
             <div>
-              <button onClick={() => (wicket<10)?setScore(score):setScore(score)}>0</button>
-              <button onClick={() => (wicket<10)?setScore(score + 1):setScore(score)}>1</button>
-              <button onClick={() => (wicket<10)?setScore(score + 2):setScore(score)}>2</button>
-              <button onClick={() => (wicket<10)?setScore(score + 3):setScore(score)}>3</button>
-              <button onClick={() => (wicket<10)?setScore(score + 4):setScore(score)}>4</button>
-              <button onClick={() => (wicket<10)?setScore(score + 5):setScore(score)}>5</button>
-              <button onClick={() => (wicket<10)?setScore(score + 6):setScore(score)}>6</button>
               <button
                 onClick={() => {
-                  if (wicket < 10) setWicket(wicket + 1);
+                  addScore(0);
+                }}
+              >
+                0
+              </button>
+              <button
+                onClick={() => {
+                  addScore(1);
+                }}
+              >
+                1
+              </button>
+              <button
+                onClick={() => {
+                  addScore(2);
+                }}
+              >
+                2
+              </button>
+              <button
+                onClick={() => {
+                  addScore(3);
+                }}
+              >
+                3
+              </button>
+              <button
+                onClick={() => {
+                  addScore(4);
+                }}
+              >
+                4
+              </button>
+              <button
+                onClick={() => {
+                  addScore(5);
+                }}
+              >
+                5
+              </button>
+              <button
+                onClick={() => {
+                  addScore(6);
+                }}
+              >
+                6
+              </button>
+
+              <button
+                onClick={() => {
+                  addWicket();
                 }}
               >
                 Wicket
@@ -50,8 +107,29 @@
         );
       };
 
+      const BallwiseResult = ()=>{
+        return (
+          <div>
+          {ballsArr.map((ball, index)=>(
+            <>
+            {index % 6 === 0?<br />:null}
+            <span key={index}>{ball === 0?<strong>.</strong>:ball}</span>
+            </>
+          ))}
+        </div>
+        );
+      }
       const App = () => {
-        return <ScoreKeeper />;
+        return (
+          <>
+          <h1>Score Keeper</h1>
+          <h3>
+            Score: {score}/{wicket}
+          </h3>
+          <ScoreButtonKeeper />
+          <BallwiseResult />
+          </>
+        );
       };
 
       const root = ReactDOM.createRoot(document.getElementById("root"));
