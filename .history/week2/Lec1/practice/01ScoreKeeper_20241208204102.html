@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <title>React App</title>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { useState } = React;
+
+      const ScoreKeeper = () => {
+        // Initialize state within the functional component
+        const [score, setScore] = useState(0);
+        const [wicket, setWicket] = useState(0);
+
+        return (
+          <>
+            <h1>Score Keeper</h1>
+            <h3>
+              Score: {score}/{wicket}
+            </h3>
+            <div>
+              <button onClick={() => (wicket<10)?setScore(score + 1):setScore(score)}>1</button>
+              <button onClick={() => (wicket<10)?setScore(score + 1):setScore(score)}>1</button>
+              <button onClick={() => (wicket<10)?setScore(score + 2):setScore(score)}>2</button>
+              <button onClick={() => (wicket<10)?setScore(score + 3):setScore(score)}>3</button>
+              <button onClick={() => (wicket<10)?setScore(score + 4):setScore(score)}>4</button>
+              <button onClick={() => (wicket<10)?setScore(score + 5):setScore(score)}>5</button>
+              <button onClick={() => (wicket<10)?setScore(score + 6):setScore(score)}>6</button>
+              <button
+                onClick={() => {
+                  if (wicket < 10) setWicket(wicket + 1);
+                }}
+              >
+                Wicket
+              </button>
+            </div>
+          </>
+        );
+      };
+
+      const App = () => {
+        return <ScoreKeeper />;
+      };
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>
