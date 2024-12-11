@@ -15,17 +15,19 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="root" style="text-align: center;"></div>
     <script type="text/babel">
       const { useState } = React;
       let ballsArr = [];
       let score = 0;
       let wicket = 0;
+      let hit = "";
       const addScore = (num) => {
         // console.log("clicked");
         if (wicket < 10) {
+          hit = num;
           score += num;
-          ballsArr.push(num);
+          // ballsArr.unshift(num);
           console.log(ballsArr);
           root.render(<App />);
         }
@@ -33,12 +35,31 @@
 
       const addWicket = () => {
         if (wicket < 10) {
+          hit = "W"
           wicket += 1;
-          ballsArr.push("W");
+          // ballsArr.unshift("W");
           root.render(<App />);
         }
         console.log(ballsArr);
       };
+      // const addScore = (num) => {
+      //   // console.log("clicked");
+      //   if (wicket < 10) {
+      //     score += num;
+      //     ballsArr.push(num);
+      //     console.log(ballsArr);
+      //     root.render(<App />);
+      //   }
+      // };
+
+      // const addWicket = () => {
+      //   if (wicket < 10) {
+      //     wicket += 1;
+      //     ballsArr.push("W");
+      //     root.render(<App />);
+      //   }
+      //   console.log(ballsArr);
+      // };
       const ScoreButtonKeeper = () => {
 
         return (
@@ -119,6 +140,38 @@
         </div>
         );
       }
+
+      const BallwiseCommentry = ()=>{
+        return (
+          <>
+          <br />
+          <input type="text" placeholder="Runs" value = {hit}/>
+          <input type="text" id="comment"/>
+          <input type="submit" onClick={()=>{
+            {const value = document.getElementById("comment").value}
+            handleComment(hit, value)
+          }}/>
+          <hr />
+          </>
+        );
+      }
+
+      const Commentry = ()=>{
+        return (
+          <div>
+          {ballsArr.map((res, index)=>(
+            <p key={index}>{res}</p>
+          ))}
+        </div>
+        );
+      }
+
+      const handleComment = (hit, value)=>{
+        let comm = `${hit} ${value}`;
+        console.log(comm);
+        ballsArr.unshift(comm);
+        root.render(<App />);
+      }
       const App = () => {
         return (
           <>
@@ -127,7 +180,8 @@
             Score: {score}/{wicket}
           </h3>
           <ScoreButtonKeeper />
-          <BallwiseResult />
+          <BallwiseCommentry />
+          <Commentry />
           </>
         );
       };
