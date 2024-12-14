@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <title>React App</title>
+    <style>
+      .App {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        align-items: center;
+      }
+
+      form {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      form div {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      button {
+        width: 120px;
+        padding-block: 5px;
+        cursor: pointer;
+      }
+
+      th,
+      td {
+        padding: 10px;
+      }
+
+      input {
+        padding: 5px;
+        font-size: 1.1rem;
+      }
+
+      .served {
+        background-color: red;
+      }
+      .dining {
+        background-color: lime;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        let customers = [];
+        const capacity = 25;
+        let seatsLeft = 25;
+
+        const guestNumber = React.createRef();
+        const guestName = React.createRef();
+        const phoneNumber = React.createRef();
+
+        const hadleSubmition = (e)=>{
+            e.preventDefault();
+
+            const gCount = guestNumber.current.value.trim();
+            const gName = guestName.current.value.trim();
+            const phoneNum = phoneNumber.current.value.trim();
+
+            if(!gCount || !gName || !phoneNum) return;
+            let time = new Date().toLocaleTimeString();
+            if(gCount > seatsLeft) return;
+            seatsLeft -=gCount;
+            customers.unshift({gCount, gName, phoneNum, time});
+            guestNumber.current.value = "";
+            guestName.current.value = "";
+            phoneNumber.current.value = "";
+            rootElement.render(<App />);
+        }
+
+        const deleteEntry = (index)=>{
+            const deletedCustomer = customers.splice(index,1)[0];
+            seatsLeft +=Number(deletedCustomer.gCount);
+            rootElement.render(<App />);
+        }
+    
+      // Create form submit handler here
+
+    const App = () => (
+        <div className="App" style={{ textAlign: "center" }}>
+            <div>
+                <h2>Total Capacity:{capacity} </h2>
+                <h2>Seats Left: {seatsLeft}</h2>
+            </div>
+            <form onSubmit={hadleSubmition}>
+                <div>
+                    <input type="number" name="guest-count" id="" placeholder="Guest Count" ref={guestNumber}/>
+                    <input type="text" name="" id="" placeholder="Primary Guest name" ref={guestName}/>
+                    <input type="text" name="" id="" placeholder="Phone Number" ref={phoneNumber}/>
+                    <button>Add Entry</button>
+                </div>
+            </form>
+            {/* Create a form here for the input count, name and phone number with a submit button*/}
+
+            <table border="1px" style={{ margin: "auto" }}>
+                <thead>
+                <tr>
+                    <th>Count</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Check In</th>
+                    <th>Remove Entry</th>
+                </tr>
+                </thead>
+                <tbody>{/* Complete table to show records of customers */}
+                    {customers.map((customer, i)=>{
+
+                        return (
+                            <>
+                                <tr key={i}>
+                                    <td>{customer.gCount}</td>
+                                    <td>{customer.gName}</td>
+                                    <td>{customer.phoneNum}</td>
+                                    <td>{customer.time} In</td>
+                                    <td><button onClick={()=>deleteEntry(i)}>Delete</button></td>
+                                </tr>
+                            </>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
+      );
+
+      const rootElement = ReactDOM.createRoot(document.getElementById("root"));
+      rootElement.render(<App />);
+    </script>
+  </body>
+</html>
