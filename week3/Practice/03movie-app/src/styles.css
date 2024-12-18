@@ -108,12 +108,23 @@ body {
     background-color: #bc16dd;
     color: #fff;
     margin: 5px;
+    width: 115px;
+    height: 32px;
   }
   .cart-btn{
     
         background-color: #251bb1;
         color: #fff;
         margin: 5px;
+        width: 110px;
+      
+  }
+  .remove-btn{
+    
+        background-color: #db2828;
+        color: #fff;
+        margin: 5px;
+        width: 110px;
       
   }
   .unfavourite-btn {
@@ -121,4 +132,6 @@ body {
     color: #fff;
     text-shadow: none;
     margin: 5px;
+    width: 115px;
+    height: 32px;
   }

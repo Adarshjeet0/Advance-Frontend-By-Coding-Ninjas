@@ -12,7 +12,9 @@ class MovieCard extends React.Component{
                     'https://m.media-amazon.com/images/M/MV5BNDYxNjQyMjAtNTdiOS00NGYwLWFmNTAtNThmYjU5ZGI2YTI1XkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg',
                 rating: '8.0',
                 price: 199,
-                star: 0
+                star: 0,
+                fav:true,
+                added:false
         } 
 
         //Binding the event handler in the constructor if event handler is not an arrow function
@@ -53,7 +55,7 @@ class MovieCard extends React.Component{
 
     render(){
         //Destructing the state object in render function
-        const {title, plot, poster, price, rating,star} =  this.state;
+        const {title, plot, poster, price, rating,star, fav, added} =  this.state;
           
         return(
             <div className="main">
@@ -99,8 +101,11 @@ class MovieCard extends React.Component{
                             </div>
 
                             {/**Favourite and add to cart buttons */}
-                            <button className="favourite-btn">Favourite</button>
-                            <button className="cart-btn">Add to Cart</button>
+                            {<button className={fav?"favourite-btn":"unfavourite-btn"} onClick={() => this.setState({ fav: !this.state.fav })}>{fav?"Favourite":"Unfavourite"}</button>}
+                            <button className={added?"remove-btn":"cart-btn"} onClick={()=> this.setState({added: !this.state.added})}>{added?"Remove":"Add to Cart"}</button>
+                            {/* {fav?<button className="favourite-btn" onClick={() => this.setState({ fav: !this.state.fav })}>Favourite</button>:
+                            <button className="unfavourite-btn" onClick={() => this.setState({ fav: !this.state.fav })}>Un-Favourite</button>}
+                            <button className="cart-btn">Add to Cart</button> */}
                             
                         </div>
                     </div>
