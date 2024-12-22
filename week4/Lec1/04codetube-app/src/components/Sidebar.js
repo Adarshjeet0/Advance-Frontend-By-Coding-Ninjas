@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { instructors } from "../data";
+import {Button, Container} from '../reusable.styled';
 
 class Sidebar extends Component {
   constructor(props) {
@@ -26,24 +27,28 @@ class Sidebar extends Component {
   render() {
     return (
       //Use the conatiner here in place of the below div.
-      <div className="sidebar">
+      <Container>
         {instructors.map((i) => (
           <div key={i.id} className="instructor">
             <img src={i.image} alt={i.name} />
             <h3>{i.name}</h3>
             {/* Use the button Component from the reusable.styled.js here in place of given button with props as bg for background color */}
-            <button
+            {/* <Button btnMethod={this.props} bg="blue">
+              
+            </Button> */}
+            <Button
               onClick={() =>
                 !this.isFollowingInstructor(i.id)
                   ? this.handleFollow(i.id)
                   : this.handleUnFollow(i.id)
               }
+              bg="blue"
             >
               {!this.isFollowingInstructor(i.id) ? "Follow" : "Unfollow"}
-            </button>
+            </Button>
           </div>
         ))}
-      </div>
+      </Container>
     );
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import {Button} from '../reusable.styled';
 // import the button component here
 class Video extends Component {
   render() {
@@ -22,9 +23,10 @@ class Video extends Component {
           <p>{instructor}</p>
           <strong>{price}</strong>
           {/* //Use the button styled component here in place of given button tag*/}
-          <button onClick={() => (!isInBag ? onAdd(id) : onRemove(id))}>
-            {!isInBag ? "Add to bag" : "Remove from bag"}
-          </button>
+          <Button onClick={() => (!isInBag ? onAdd(id) : onRemove(id))} bg="red">
+            {!isInBag ? "Add to bag" : "Remove from bag"} 
+          </Button>
+          
         </div>
       </div>
     );

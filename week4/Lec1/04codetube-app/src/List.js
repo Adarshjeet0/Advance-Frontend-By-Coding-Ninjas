@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Course from "./components/Course";
 import { courses } from "./data";
+import {Container} from './reusable.styled';
 //Import the Container here from the resuable.styled.js file.
 
 
@@ -11,7 +12,7 @@ class List extends Component {
     return (
       //Refactor the div to use the container styled component with value as props using the flex value
       // eg. <Container flex='3'/>
-      <div className="list">
+      <Container flex='3'>
         {courses.map((v) => (
           <Course
             key={v.id}
@@ -21,7 +22,7 @@ class List extends Component {
             isInBag={isCourseinBag(v.id)}
           />
         ))}
-      </div>
+      </Container>
     );
   }
 }
